@@ -10,20 +10,20 @@
 <sdf version="1.8">
   <world name="demo">
     <plugin
-      filename="gz-sim-physics-system"
+      filename="ignition-gazebo-physics-system"
       name="gz::sim::systems::Physics">
     </plugin>
     <plugin
-      filename="gz-sim-sensors-system"
+      filename="ignition-gazebo-sensors-system"
       name="gz::sim::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
     <plugin
-      filename="gz-sim-scene-broadcaster-system"
+      filename="ignition-gazebo-scene-broadcaster-system"
       name="gz::sim::systems::SceneBroadcaster">
     </plugin>
     <plugin
-      filename="gz-sim-user-commands-system"
+      filename="ignition-gazebo-user-commands-system"
       name="gz::sim::systems::UserCommands">
     </plugin>
     <plugin
@@ -84,12 +84,12 @@
       </include>
 
       <plugin
-        filename="gz-sim-joint-state-publisher-system"
+        filename="ignition-gazebo-joint-state-publisher-system"
         name="gz::sim::systems::JointStatePublisher">
       </plugin>
 
       <plugin
-        filename="gz-sim-pose-publisher-system"
+        filename="ignition-gazebo-pose-publisher-system"
         name="gz::sim::systems::PosePublisher">
         <publish_link_pose>true</publish_link_pose>
         <use_pose_vector_msg>true</use_pose_vector_msg>
@@ -98,8 +98,8 @@
       </plugin>
 
       <plugin
-        filename="gz-sim-odometry-publisher-system"
-        name="gz::sim::systems::OdometryPublisher">
+        filename="ignition-gazebo-odometry-publisher-system"
+        name="ignition::gazebo::systems::OdometryPublisher">
         <odom_frame>diff_drive/odom</odom_frame>
         <robot_base_frame>diff_drive</robot_base_frame>
       </plugin>

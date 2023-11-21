@@ -17,8 +17,8 @@ private:
 
     void callback() {
         auto twist_msg = geometry_msgs::msg::Twist();
-        twist_msg.linear.x = 20;
-        twist_msg.angular.z = 0.0;
+        twist_msg.linear.x = 0.6;
+        twist_msg.angular.z = 0.2;
         this->publisher->publish(twist_msg);
         std::ostringstream msg;
         msg << "Publishing: Twist(linear.x=" << twist_msg.linear.x

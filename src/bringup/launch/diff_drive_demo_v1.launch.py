@@ -35,7 +35,8 @@ def generate_launch_description():
         output="both",
         parameters=[
             {"use_sim_time": True},
-            {"robot_description": robot_model_description}
+            {"robot_description": robot_model_description},
+            {"frame_prefix": "diff_drive"}
         ]
     )
 
