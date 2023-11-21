@@ -24,7 +24,7 @@ def append_path(new_path, existing_value):
 
 def generate_launch_description():
     bringup_package = get_package_share_directory("bringup")
-    dependency_package_lib_dir = get_package_lib_directory("ros_gz_example_gazebo")
+    dependency_package_lib_dir = get_package_lib_directory("gz_plugin_dependencies")
 
     system_plugin_path = os.environ.get("IGN_GAZEBO_SYSTEM_PLUGIN_PATH")
     os.environ["IGN_GAZEBO_SYSTEM_PLUGIN_PATH"] = append_path(dependency_package_lib_dir, system_plugin_path)
