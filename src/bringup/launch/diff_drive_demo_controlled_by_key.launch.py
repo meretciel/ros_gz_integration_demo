@@ -23,6 +23,12 @@ def append_path(new_path, existing_value):
 
 
 def generate_launch_description():
+    """
+    Compared to the diff_drive_demo.launch.py file, this launch configuration does not contain the control node. To
+    control the diff drive, we need to launch a teleop_twist_keyboard using the following command:
+
+    ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap rostopic://cmd_vel:=diff_drive_cmd
+    """
     bringup_package = get_package_share_directory("bringup")
     dependency_package_lib_dir = get_package_lib_directory("gz_plugin_dependencies")
     world_file_arg = DeclareLaunchArgument("world", default_value="diff_drive_demo_world.sdf")
@@ -44,15 +50,6 @@ def generate_launch_description():
             os.environ[var] = path.join(bringup_package, "models")
         else:
             os.environ[var] = path.join(bringup_package, "models") + ":" + value
-
-
-    # Create the diff_drive_control_node. Because we only create one node and we don't need to resolve any name and
-    # namespace conflict, the creation of this node is straightforward.
-    print("Creating the diff drive control node")
-    diff_drive_control_node = Node(
-        package="diff_drive_controller",
-        executable="diff_drive_controller_node"
-    )
 
     # Create a robot state publisher based on the robot model
     print("Load the robot model files and create the robot state publisher")
@@ -112,7 +109,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         world_file_arg,
-        diff_drive_control_node,
         robot_state_publisher,
         # joint_state_publisher,
         rviz,
