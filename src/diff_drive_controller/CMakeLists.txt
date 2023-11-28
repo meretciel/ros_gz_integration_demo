@@ -14,9 +14,18 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 add_executable(diff_drive_controller_node src/diff_drive_controller.cpp)
-ament_target_dependencies(diff_drive_controller_node rclcpp geometry_msgs std_msgs)
+ament_target_dependencies(diff_drive_controller_node
+        rclcpp
+        geometry_msgs
+        std_msgs
+        tf2
+        tf2_ros
+)
+
 install(TARGETS
         diff_drive_controller_node
         DESTINATION lib/${PROJECT_NAME})
