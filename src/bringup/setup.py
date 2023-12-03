@@ -17,6 +17,7 @@ setup(
         (path.join('share', package_name, 'worlds'), glob(path.join('worlds', '*'))),
         (path.join('share', package_name, 'models', 'diff_drive'), glob(path.join("models", "diff_drive", "*"), recursive=True)),
         (path.join('share', package_name, 'models', 'diff_drive_ros'), glob(path.join("models", "diff_drive_ros", "*"), recursive=True)),
+        (path.join('share', package_name, 'models', 'diff_drive_slam_and_nav'), glob(path.join("models", "diff_drive_slam_and_nav", "*"), recursive=True)),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
