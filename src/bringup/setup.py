@@ -1,8 +1,24 @@
 from setuptools import find_packages, setup
 from os import path
 from glob import glob
+import os
 
 package_name = 'bringup'
+
+def scan_and_collect(dir_name, target_dir_prefix):
+    full_path_of_root = path.join(path.dirname(path.abspath(__file__)), dir_name)
+    base_dir_of_root = path.dirname(full_path_of_root)
+    prefix_of_local_path = base_dir_of_root + "/"
+
+    result = []
+    for dirpath, dirnames, filenames in os.walk(full_path_of_root, followlinks=True):
+        relative_dirpath = dirpath.replace(prefix_of_local_path, '', 1)
+        files_at_this_level = [path.join(relative_dirpath, item) for item in filenames]
+        new_path = dirpath.replace(base_dir_of_root, target_dir_prefix, 1)
+        result.append((new_path, files_at_this_level))
+    return result
+
+model_files = scan_and_collect("models", path.join("share", package_name))
 
 setup(
     name=package_name,
@@ -15,9 +31,7 @@ setup(
         (path.join('share', package_name, 'launch'), glob(path.join('launch', '*launch.[pxy][yma]*'))),
         (path.join('share', package_name, 'config'), glob(path.join('config', '*'))),
         (path.join('share', package_name, 'worlds'), glob(path.join('worlds', '*'))),
-        (path.join('share', package_name, 'models', 'diff_drive'), glob(path.join("models", "diff_drive", "*"), recursive=True)),
-        (path.join('share', package_name, 'models', 'diff_drive_ros'), glob(path.join("models", "diff_drive_ros", "*"), recursive=True)),
-        (path.join('share', package_name, 'models', 'diff_drive_slam_and_nav'), glob(path.join("models", "diff_drive_slam_and_nav", "*"), recursive=True)),
+        *model_files
     ],
     install_requires=['setuptools'],
     zip_safe=True,

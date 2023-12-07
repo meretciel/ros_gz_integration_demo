@@ -189,8 +189,8 @@
               <horizontal>
                 <samples>640</samples>
                 <resolution>1</resolution>
-                <min_angle>-3.141592</min_angle>
-                <max_angle>3.141592</max_angle>
+                <min_angle>-3.14</min_angle>
+                <max_angle>3.14</max_angle>
               </horizontal>
               <vertical>
                 <samples>1</samples>
@@ -255,8 +255,8 @@
         <min_linear_acceleration>-1</min_linear_acceleration>
         <max_angular_acceleration>2</max_angular_acceleration>
         <min_angular_acceleration>-2</min_angular_acceleration>
-        <max_linear_velocity>0.5</max_linear_velocity>
-        <min_linear_velocity>-0.5</min_linear_velocity>
+        <max_linear_velocity>2</max_linear_velocity>
+        <min_linear_velocity>-2</min_linear_velocity>
         <max_angular_velocity>1</max_angular_velocity>
         <min_angular_velocity>-1</min_angular_velocity>
       </plugin>
