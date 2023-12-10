@@ -36,6 +36,7 @@ def generate_launch_description():
     """
     bringup_package = get_package_share_directory("bringup")
     dependency_package_lib_dir = get_package_lib_directory("gz_plugin_dependencies")
+    nav2_bringup_package = get_package_share_directory("nav2_bringup")
 
     # Define the launch file arguments
     world_file_arg = DeclareLaunchArgument("world", default_value="diff_drive_demo_world.sdf")
@@ -48,6 +49,7 @@ def generate_launch_description():
     disable_slam_value = LaunchConfiguration("disable_slam")
 
     rviz_config_arg, rviz_config_value = define_argument("rviz_config", default_value="slam_and_nav_v1.rviz")
+    map_file_arg, map_file_value = define_argument("map_file")
 
 
     system_plugin_path = os.environ.get("IGN_GAZEBO_SYSTEM_PLUGIN_PATH")
@@ -99,7 +101,7 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         parameters=[{
-            'config_file': path.join(bringup_package, 'config', 'ros_gz_bridge.yml'),
+            'config_file': path.join(bringup_package, 'config', 'slam_and_nav_ros_gz_bridge.yml'),
             'qos_overrides./tf_static.publisher.durability': 'transient_local',
         }],
         output='screen'
@@ -117,17 +119,6 @@ def generate_launch_description():
         launch_arguments={'gz_args': [world_file, " --gui-config ", gui_config]}.items(),
     )
 
-    components_to_launch = [
-        world_file_arg,
-        gui_config_arg,
-        disable_slam_arg,
-        robot_state_publisher,
-        rviz,
-        bridge,
-        gz_sim_node,
-    ]
-
-
     print("Launch the slam toolbox")
     slam_toolbox = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(path.join(get_package_share_directory("slam_toolbox"), "launch", "online_async_launch.py")),
@@ -138,14 +129,28 @@ def generate_launch_description():
         }.items(),
     )
 
+    print("Launch the navigation stack")
+    nav2_stack = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(path.join(bringup_package, "launch", "_nav2_bringup_launch.py")),
+        launch_arguments={
+            "use_namespace": "true",
+            "namespace": "diff_drive",
+            "map_file": map_file_value,
+            "use_sim_tim": "true",
+            "params_file": PathJoinSubstitution([bringup_package, "config", "slam_and_nav_nav2_params.yaml"]),
+        }.items()
+    )
+
     return LaunchDescription([
         world_file_arg,
         gui_config_arg,
         disable_slam_arg,
         rviz_config_arg,
+        map_file_arg,
         robot_state_publisher,
         rviz,
         bridge,
         gz_sim_node,
-        slam_toolbox
+        slam_toolbox,
+        nav2_stack,
     ])
