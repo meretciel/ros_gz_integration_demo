@@ -134,7 +134,10 @@ def generate_launch_description():
         arguments=['--ros-args', '--log-level', log_level],
         remappings=remappings)
 
-    lifecycle_nodes = ['/map_server', 'amcl']
+    lifecycle_nodes = [
+        '/map_server',
+        '/diff_drive/amcl',
+    ]
 
     nodes = [
                 Node(

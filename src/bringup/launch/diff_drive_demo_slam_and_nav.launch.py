@@ -48,7 +48,7 @@ def generate_launch_description():
     disable_slam_arg = DeclareLaunchArgument("disable_slam", default_value="false")
     disable_slam_value = LaunchConfiguration("disable_slam")
 
-    rviz_config_arg, rviz_config_value = define_argument("rviz_config", default_value="slam_and_nav_v1.rviz")
+    rviz_config_arg, rviz_config_value = define_argument("rviz_config", default_value="slam_and_nav_v4.rviz")
     map_file_arg, map_file_value = define_argument("map_file")
 
 
@@ -92,6 +92,7 @@ def generate_launch_description():
         package="rviz2",
         executable="rviz2",
         condition=IfCondition(LaunchConfiguration("rviz")),
+        parameters=[{"use_sim_time": True}],
         arguments=["-d", PathJoinSubstitution([bringup_package, "config", rviz_config_value])]
     )
 
