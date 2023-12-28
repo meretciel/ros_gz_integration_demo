@@ -185,7 +185,7 @@ local_costmap:
     ros__parameters:
       update_frequency: 5.0
       publish_frequency: 2.0
-      global_frame: <namespace>/odom
+      global_frame: map   # TODO: original value is <namespace>/odom
       robot_base_frame: <namespace>/base_link
       use_sim_time: True
       rolling_window: true
@@ -312,7 +312,7 @@ behavior_server:
       plugin: "nav2_behaviors/Wait"
     assisted_teleop:
       plugin: "nav2_behaviors/AssistedTeleop"
-    global_frame: <namespace>/odom # To confirm this should be odom instead of map?
+    global_frame: map # TODO: confirm this should be odom instead of map? <namespace>/odom
     robot_base_frame: <namespace>/base_link
     transform_tolerance: 0.1
     use_sim_time: true
